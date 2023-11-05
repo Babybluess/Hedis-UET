@@ -18,7 +18,7 @@ export default function AppNavigation() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Log In" component={LogInScreen} />
         <Stack.Screen name="Sign Up" component={SignUpScreen} />
-        <Stack.Screen name="DetailEmotion" options={{presentation: 'fullScreenModal'}} component={DetailScreen} />
+        <Stack.Screen name="DetailItem" options={{presentation: 'fullScreenModal'}} component={DetailScreen} />
       </Stack.Navigator>
   </NavigationContainer>
   )

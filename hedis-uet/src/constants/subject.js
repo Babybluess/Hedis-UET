@@ -1,38 +1,44 @@
 export default subject = [
     {
-        id: 'love',
+        id: '1',
         name: 'Yêu thích',
         image: require('../../assets/image/general/heart.png'),
-        bgColor: '7BDB59'
+        bgColor: '7BDB59',
+        idName: 'love',
     },
     {
-        id: 'communication',
+        id: '2',
         name: 'Giao tiếp',
         image: require('../../assets/image/general/communication.png'),
-        bgColor: 'F6C8CC'
+        bgColor: 'F6C8CC',
+        idName: 'communication',
     },
     {
-        id: 'emotion',
+        id: '3',
         name: 'Cảm xúc',
         image: require('../../assets/image/general/emotion.png'),
-        bgColor: 'F7E64B'
+        bgColor: 'F7E64B',
+        idName: 'emotion',
     },
     {
-        id: 'food',
+        id: '4',
         name: 'Đồ ăn',
         image: require('../../assets/image/general/food.png'),
-        bgColor: '44DCE6'
+        bgColor: '44DCE6',
+        idName: 'food',
     },
     {
-        id: 'animal',
+        id: '5',
         name: 'Động vật',
         image: require('../../assets/image/general/animal.png'),
-        bgColor: 'E53AE9'
+        bgColor: 'E53AE9',
+        idName: 'animal',
     },
     {
-        id: 'color',
+        id: '6',
         name: 'Màu sắc',
         image: require('../../assets/image/general/color.png'),
-        bgColor: 'FF9776'
+        bgColor: 'FF9776',
+        idName: 'color',
     },
 ]

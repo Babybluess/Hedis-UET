@@ -15,11 +15,10 @@ import {
   heightPercentageToDP as hp,
   } from "react-native-responsive-screen";
   import * as Icons from "react-native-heroicons/solid";
-  import { HeartIcon, Square3Stack3DIcon, UsersIcon } from "react-native-heroicons/solid";
   import subject from '../constants/subject';
-  import Animated, { FadeInDown, FadeIn } from 'react-native-reanimated';
-  import { ChevronLeftIcon, ClockIcon, FireIcon } from 'react-native-heroicons/outline';
   import { useNavigation } from "@react-navigation/native";
+  import Categories from '../components/categories'
+  import Back from '../ultis/backButton';
 
 export default function HomeScreen() {
 
@@ -31,11 +30,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={{paddingHorizontal: 20}} >
-        <Animated.View entering={FadeIn.delay(200).duration(1000)} style={{width: 50, height: 30, marginTop: 20}}>
-              <TouchableOpacity onPress={()=> navigation.goBack()}>
-                  <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#fbbf24" />
-              </TouchableOpacity>
-        </Animated.View>
+          <Back/>
           <View style={styles.header}>
             <Text style={styles.title}>Xin chào bạn</Text>
             <View style={styles.bgAccount}>
@@ -54,20 +49,17 @@ export default function HomeScreen() {
               keyboardType="default"
             />
           </View>
-          <View style={styles.item_btn}>
-            { subject.map((item, index) => (
-              <TouchableOpacity key={index} style={{width: 160, height: 150, justifyContent: 'center', alignItems: 'center', backgroundColor:`#${item.bgColor}`, marginBottom: 10, borderRadius: 10 }}>
-                  <Image source={item.image} style={{width: 110, height: 100}}/>
-                  <Text style={styles.text}>{item.name}</Text>
-              </TouchableOpacity>
-            ))
-            }
-            <TouchableOpacity style={{width: 160, height: 150, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', marginBottom: 10, borderRadius: 10, borderWidth: 1, borderColor: 'grey', borderStyle: 'dashed' }}>
-                  <Image source={require('../../assets/image/general/plus.png')} style={{width: 110, height: 100}}/>
-                  <Text style={styles.text}>Thêm gói</Text>
-              </TouchableOpacity>
+            <View style={styles.item_btn}>
+              { subject.map((items, id) => 
+                <Categories key={id} item={items} index={id} navigation={navigation}/>
+              )
+              }
+              <TouchableOpacity style={{width: 160, height: 150, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', marginBottom: 10, borderRadius: 10, borderWidth: 1, borderColor: 'grey', borderStyle: 'dashed' }}>
+                    <Image source={require('../../assets/image/general/plus.png')} style={{width: 110, height: 100}}/>
+                    <Text style={styles.text}>Thêm gói</Text>
+                </TouchableOpacity>
 
-          </View>
+            </View>
       </ScrollView>
     </View>
   )
@@ -134,3 +126,10 @@ const styles = StyleSheet.create({
         fontWeight: 'light'
       }
 })
+
+
+ {/* <Animated.View entering={FadeIn.delay(200).duration(1000)} style={{width: 50, height: 30, marginTop: 20}}>
+              <TouchableOpacity onPress={()=> navigation.goBack()}>
+                  <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#fbbf24" />
+              </TouchableOpacity>
+        </Animated.View> */}

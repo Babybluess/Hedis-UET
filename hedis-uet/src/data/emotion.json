@@ -1,0 +1,116 @@
+{ "itemPackage" : [
+    {
+        "id": "1",
+        "name": "Vui mừng",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/happy.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/happy.wav"
+    },
+    {
+        "id": "2",
+        "name": "Buồn",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/sad.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/sad.wav"
+    },
+    {
+        "id": "3",
+        "name": "Đùa vui",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/fun.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/fun.wav"
+    },
+    {
+        "id": "4",
+        "name": "Thư giãn",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/relax.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/relax.wav"
+    },
+    {
+        "id": "5",
+        "name": "Đáng yêu",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/like.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/like.wav"
+    },
+    {
+        "id": "6",
+        "name": "Căng thẳng",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/stress.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/stress.wav"
+    },
+    {
+        "id": "7",
+        "name": "Biết ơn",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/grateful.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/grateful.wav"
+    },
+    {
+        "id": "8",
+        "name": "Bối rối",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/confused.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/confused.wav"
+    },
+    {
+        "id": "9",
+        "name": "Hân hoan",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/joyful.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/joyful.wav"
+    },
+    {
+        "id": "10",
+        "name": "Tức giận",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/angry.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/angry.wav"
+    },
+    {
+        "id": "11",
+        "name": "Thông minh",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/take ideas.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/take ideas.wav"
+    },
+    {
+        "id": "12",
+        "name": "Sợ hãi",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/scared.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/scared.wav"
+    },
+    {
+        "id": "13",
+        "name": "Hổ thẹn",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/ashamed.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/ashamed.wav"
+    },
+    {
+        "id": "14",
+        "name": "Ngạc nhiên",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/surprised.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/surprised.wav"
+    },
+    {
+        "id": "15",
+        "name": "Ốm",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/sick.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/sick.wav"
+    },
+    {
+        "id": "16",
+        "name": "Mệt mỏi",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/tired.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/tired.wav"
+    },
+    {
+        "id": "17",
+        "name": "Hào hứng",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/excited.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/excited.wav"
+    },
+    {
+        "id": "18",
+        "name": "Nôn",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/nausea.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/nausea.wav"
+    },
+    {
+        "id": "19",
+        "name": "Kích động",
+        "image": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmZEZ3TokJ795AiWJq5dit3X7iRHHf1jLdQxXC2VDe1Epx/flutter.png",
+        "audio": "https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmadY2476ddLhvTur1TpEiMd3LerzHkFR3L6HdpfVMCMhu/emotions/flutter.wav"
+    }
+]}
