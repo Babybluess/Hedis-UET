@@ -5,10 +5,10 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
   } from "react-native-responsive-screen";
-import { StackActions } from '@react-navigation/native';
+import { StackActions, CommonActions } from '@react-navigation/native';
 import subject from '../constants/subject';
 
-export default function CustomButton({index, navigation}) {
+export default function CustomButton({index, navigation, searchContext}) {
   const[preList, setPrelist] = useState({bgColor: "FFFFFF"})
   const[nextList, setNextlist] = useState({bgColor: "FFFFFF"})
 
@@ -29,9 +29,7 @@ export default function CustomButton({index, navigation}) {
         {
           index > 1 && (
             <TouchableOpacity  onPress={() =>
-                navigation.dispatch(
-                StackActions.replace('DetailItem', {...preList})
-              )} 
+                navigation.navigate('DetailItem', {...preList})}
               style={{width: 140, height: 40, borderRadius: 20, flexDirection: 'row', gap: 5, backgroundColor:`#${preList.bgColor}`, justifyContent: 'center', alignItems: 'center' }}>
                 <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#fbbf24" />
                 <Image style={{objectFit: 'contain',  width: 35, height: 50}} source={preList.image}/>
@@ -42,9 +40,7 @@ export default function CustomButton({index, navigation}) {
         {
           index < 6 && (
             <TouchableOpacity  onPress={() =>
-                  navigation.dispatch(
-                  StackActions.replace('DetailItem', {...nextList})
-                )} 
+                  navigation.navigate('DetailItem', {...nextList})}
                 style={{width: 140, height: 40, borderRadius: 20, flexDirection: 'row', gap: 5, backgroundColor:`#${nextList.bgColor}`, justifyContent: 'center', alignItems: 'center' }}>
                   <Text style={styles.text}>{nextList.name}</Text>
                   <Image style={{objectFit: 'contain', width: 35, height: 50}} source={nextList.image}/>

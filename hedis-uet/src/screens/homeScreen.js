@@ -26,11 +26,11 @@ export default function HomeScreen() {
  const [isFavourite, setIsFavourite] = useState(false);
 
  const navigation = useNavigation();
-
+ 
+  
   return (
     <View style={styles.container}>
       <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={{paddingHorizontal: 20}} >
-          <Back/>
           <View style={styles.header}>
             <Text style={styles.title}>Xin chào bạn</Text>
             <View style={styles.bgAccount}>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         width: wp(85),
-        marginVertical: 10
+        marginVertical: 20
       },
       title: {
         fontSize: 28,

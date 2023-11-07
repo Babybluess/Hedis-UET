@@ -6,30 +6,22 @@ import {
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-export default function SearchBar({speech}) {
-    const[text, setText] = useState([])
-    const[sp, setSp] = useState('')
-    let n = ''
-
-    useEffect(() => (
-        setText( pre => [...pre , ...speech])
-        
-    ),[speech])
+export default function SearchBar({message}) {
+    const [speech, setSpeech] = useState('')
 
     useEffect(() => {
-        // console.log("array to string", text.toString())
-        n = n.concat(" ", speech)
+      setSpeech(speech + message.toLowerCase() + ' ')
+      console.log("speech", speech)    
+    }, [message])
 
-    }, [speech])
-
-    useEffect(() => {
-        console.log("n", n)
-    }, [n])
+    const resetSearch = () => {
+      setSpeech("")
+    }
 
   return (
     <View style={styles.searchBar}>
         <Text style={styles.textSearch}>{speech}</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => resetSearch()}>
             <XMarkIcon size={hp(3.5)} strokeWidth={4.0} color='black'/>
         </TouchableOpacity>
         <TouchableOpacity>
@@ -50,10 +42,11 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent: 'space-between',
         borderRadius: 20,
-        marginVertical: 10
+        marginVertical: 20
       },
       textSearch: {
         width: wp(60),
-        color: 'white'
+        color: 'white',
+        fontWeight: '600'
       }, 
 })

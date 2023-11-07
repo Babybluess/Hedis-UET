@@ -42,3 +42,31 @@ export default subject = [
         idName: 'color',
     },
 ]
+
+
+export const accountImage = [
+    {
+        id: '1',
+        image: require('../../assets/image/accountImage/Ellipse_2.png')
+    },
+    {
+        id: '2',
+        image: require('../../assets/image/accountImage/Ellipse_3.png')
+    },
+    {
+        id: '3',
+        image: require('../../assets/image/accountImage/Ellipse_4.png')
+    },
+    {
+        id: '4',
+        image: require('../../assets/image/accountImage/Ellipse_5.png')
+    },
+    {
+        id: '5',
+        image: require('../../assets/image/accountImage/Ellipse_6.png')
+    },
+    {
+        id: '6',
+        image: require('../../assets/image/accountImage/Ellipse_7.png')
+    },
+]

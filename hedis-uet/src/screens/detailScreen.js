@@ -19,7 +19,6 @@ export default function DetailScreen(props) {
   const[isLoading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false);
   const [message, setMessage] = useState('')
-  const [speech, setSpeech] = useState('')
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -49,9 +48,7 @@ export default function DetailScreen(props) {
   }, [item])
   
   useEffect(() => {
-    setSpeech(speech.concat(message, " "))
     console.log('message', message)
-    console.log('speech', speech)
   },[message])
 
   return (
@@ -66,7 +63,7 @@ export default function DetailScreen(props) {
     >
       <Animated.View entering={FadeIn.delay(200).duration(1000)} style={{width: wp(100), paddingLeft: 10, paddingTop: 20, backgroundColor: `#${item.bgColor}`}}>
             <TouchableOpacity onPress={()=> navigation.goBack()}>
-                <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#fbbf24" />
+                <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="black" />
             </TouchableOpacity>
       </Animated.View>
       <View style={{ justifyContent: 'flex-end',  width: wp(100), height: hp(15), backgroundColor: `#${item.bgColor}`, padding: 10}}>
@@ -79,8 +76,8 @@ export default function DetailScreen(props) {
         <Loading style={styles.loading}/>
       ) : (
       <View style={styles.mainContext}>
-          <SearchBar speech={speech}/>
           <View style={styles.item_btn}>
+            <SearchBar message={message} navigation={navigation}/>
             {
               data.map((item, index) => (
                 <Animated.View key={index} entering={FadeInDown.delay(index*100).duration(600).springify().damping(12)}>

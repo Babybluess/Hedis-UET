@@ -24,7 +24,7 @@ export default function SignUpScreen() {
 
   const signUp = () => {
     isSignSC(true)
-    setTimeout(() => navigation.navigate('Log In'), 1000)
+    setTimeout(() => navigation.navigate('Set Name'), 1000)
   }
   useEffect(()=>{
     ring1padding.value = 0;
