@@ -12,13 +12,18 @@ export default function AccountScreen() {
 
   const navigation = useNavigation();
   const [accImage, setAccImage] = useState('')
-  const [isSelected, setSelected] = useState(false)
+  const [isSelected, setSelected] = useState()
 
   const ring1padding = useSharedValue(0);
   useEffect(()=>{
     ring1padding.value = 0;
     setTimeout(()=> ring1padding.value = withSpring(ring1padding.value+hp(5)), 300);
 },[])
+
+const selectImage = (item) =>{
+  setSelected(item.id)
+  setAccImage(item.image)
+}
 
   return (
     <View style={styles.container}>
@@ -30,9 +35,9 @@ export default function AccountScreen() {
           {
               accountImage.map((item, id) => (
                 <Animated.View key={id} entering={FadeInDown.delay(id*100).duration(600).springify().damping(12)}>  
-                  <TouchableOpacity onPress={() => setAccImage(item.image)}  style={styles.image}>
+                  <TouchableOpacity onPress={() => selectImage(item)}  style={ isSelected == id + 1 ? styles.hoverStyle : styles.imageBox}>
                         <Image
-                          style={{width: hp(15), height: hp(15)}}
+                          style={isSelected == id + 1 ? styles.hoverImage : styles.image}
                           source={item.image}
                         />
                   </TouchableOpacity>
@@ -92,8 +97,20 @@ const styles = StyleSheet.create({
     fontSize: hp(2.2),
     fontWeight: "bold",
   }, 
-  image:{
-    width: 110, 
-    height: 110, 
+  imageBox:{
+    width: wp(30), 
+    height: hp(15), 
+  },
+  hoverStyle: {
+    padding: 5,
+    backgroundColor: '#ff7f50',
+    borderRadius: 80,
+  },
+  hoverImage: {
+    width: hp(15) - 10, 
+    height: hp(15) - 10
+  },
+  image: {
+    width: hp(15), height: hp(15)
   }
 })

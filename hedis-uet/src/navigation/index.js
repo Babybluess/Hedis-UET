@@ -11,9 +11,9 @@ import { Provider } from 'react-redux'
 import { Store } from '../redux/store';
 import NameScreen from '../screens/nameScreen';
 import AccountScreen from '../screens/accountScreen';
+import AddPackScreen from '../screens/addPackScreen';
 
 const Stack = createNativeStackNavigator()
-
 
 export default function AppNavigation() {
   return (
@@ -26,7 +26,8 @@ export default function AppNavigation() {
         <Stack.Screen name="Sign Up" component={SignUpScreen} />
         <Stack.Screen name="Set Name" component={NameScreen} />
         <Stack.Screen name="Set Account" component={AccountScreen} />
-        <Stack.Screen name="DetailItem" store options={{presentation: 'fullScreenModal'}} component={DetailScreen} />
+        <Stack.Screen name="Add Package" component={AddPackScreen} />
+        <Stack.Screen name="DetailItem" options={{presentation: 'fullScreenModal'}} component={DetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   </Provider>  

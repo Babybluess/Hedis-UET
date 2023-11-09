@@ -30,7 +30,7 @@ export default function CustomButton({index, navigation, searchContext}) {
           index > 1 && (
             <TouchableOpacity  onPress={() =>
                 navigation.navigate('DetailItem', {...preList})}
-              style={{width: 140, height: 40, borderRadius: 20, flexDirection: 'row', gap: 5, backgroundColor:`#${preList.bgColor}`, justifyContent: 'center', alignItems: 'center' }}>
+              style={{width: 160, height: 40, borderRadius: 20, flexDirection: 'row', gap: 5, backgroundColor:`#${preList.bgColor}`, justifyContent: 'center', alignItems: 'center' }}>
                 <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#fbbf24" />
                 <Image style={{objectFit: 'contain',  width: 35, height: 50}} source={preList.image}/>
                 <Text style={styles.text}>{preList.name}</Text>
@@ -41,7 +41,7 @@ export default function CustomButton({index, navigation, searchContext}) {
           index < 6 && (
             <TouchableOpacity  onPress={() =>
                   navigation.navigate('DetailItem', {...nextList})}
-                style={{width: 140, height: 40, borderRadius: 20, flexDirection: 'row', gap: 5, backgroundColor:`#${nextList.bgColor}`, justifyContent: 'center', alignItems: 'center' }}>
+                style={{width: 160, height: 40, borderRadius: 20, flexDirection: 'row', gap: 5, backgroundColor:`#${nextList.bgColor}`, justifyContent: 'center', alignItems: 'center' }}>
                   <Text style={styles.text}>{nextList.name}</Text>
                   <Image style={{objectFit: 'contain', width: 35, height: 50}} source={nextList.image}/>
                   <ChevronRightIcon size={hp(3.5)} strokeWidth={4.5} color="#fbbf24" />

@@ -13,7 +13,7 @@ export default function Back() {
   return (
     <Animated.View entering={FadeIn.delay(200).duration(1000)} style={{width: 50, height: 30, marginTop: 20}}>
         <TouchableOpacity onPress={()=> navigation.goBack()}>
-            <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#fbbf24" />
+            <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="black" />
         </TouchableOpacity>
     </Animated.View>   
   )

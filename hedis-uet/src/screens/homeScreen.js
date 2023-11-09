@@ -23,7 +23,18 @@ import {
 export default function HomeScreen() {
 
  const [search, setSearch]= useState('')
- const [isFavourite, setIsFavourite] = useState(false);
+ const list = [1,2,3,4,5,6]
+//  const [access, setAcess] = useState([]);
+
+//  const accessList = () => {
+//   let data = [] 
+//   for(let i = 0;i< subject.length; i++){
+//     data.push(subject[i])
+//    }
+//    return data
+//  }
+
+//  console.log('car', accessList())
 
  const navigation = useNavigation();
  
@@ -50,14 +61,21 @@ export default function HomeScreen() {
             />
           </View>
             <View style={styles.item_btn}>
-              { subject.map((items, id) => 
-                <Categories key={id} item={items} index={id} navigation={navigation}/>
-              )
-              }
-              <TouchableOpacity style={{width: 160, height: 150, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', marginBottom: 10, borderRadius: 10, borderWidth: 1, borderColor: 'grey', borderStyle: 'dashed' }}>
+              {   subject.map((items, id) => (
+                  
+                  <>
+                    { 
+                      id < 6 &&
+                      <Categories key={id} item={items} index={id} navigation={navigation}/>
+                    }
+                  </>
+
+                  )
+              )}
+              <TouchableOpacity onPress={() => navigation.navigate('Add Package', subject)} style={{width: 150, height: 150, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', marginBottom: 10, borderRadius: 10, borderWidth: 1, borderColor: 'grey', borderStyle: 'dashed' }}>
                     <Image source={require('../../assets/image/general/plus.png')} style={{width: 110, height: 100}}/>
                     <Text style={styles.text}>Thêm gói</Text>
-                </TouchableOpacity>
+              </TouchableOpacity>
 
             </View>
       </ScrollView>
@@ -83,7 +101,7 @@ const styles = StyleSheet.create({
       title: {
         fontSize: 28,
         fontWeight: 'bold',
-        width: 200
+        width: 200,
       },
       bgAccount: {
         flexDirection: 'row',
@@ -123,13 +141,7 @@ const styles = StyleSheet.create({
       },
       text: {
         fontSize: 24,
-        fontWeight: 'light'
+        fontWeight: 'light',
       }
 })
 
-
- {/* <Animated.View entering={FadeIn.delay(200).duration(1000)} style={{width: 50, height: 30, marginTop: 20}}>
-              <TouchableOpacity onPress={()=> navigation.goBack()}>
-                  <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#fbbf24" />
-              </TouchableOpacity>
-        </Animated.View> */}

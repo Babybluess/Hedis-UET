@@ -10,6 +10,7 @@ import {
 import Loading from '../components/loading';
 import CustomButton from '../components/customButton';
 import SearchBar from '../components/searchBar';
+import Card from '../components/card';
 
 
 export default function DetailScreen(props) {
@@ -33,7 +34,7 @@ export default function DetailScreen(props) {
   }, [data.length]);
   
   const getPackageData = async(name) => {
-    const url = `https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/Qmbrh647KPWiHGyxVumVfT13BChDgXMMupKmJTDMDR5dDE/${name}.json`;
+    const url = `https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/Qma6yFrhvNuGz2KcVAAqTLUuRczCvLk9P2reKTMwSiVyx7/${name}.json`;
     
     const response = await fetch(url);
     const text = await response.json();
@@ -69,7 +70,9 @@ export default function DetailScreen(props) {
       <View style={{ justifyContent: 'flex-end',  width: wp(100), height: hp(15), backgroundColor: `#${item.bgColor}`, padding: 10}}>
           <View style={{ flexDirection: 'row', gap: 10, padding: 10, alignItems: 'center'}}>
             <Text style={{fontSize: 32, fontWeight: 'bold'}}>{item.name}</Text>
-            <SpeakerWaveIcon size={hp(3.5)} strokeWidth={4.0} color='black'/>
+            <TouchableOpacity>
+              <SpeakerWaveIcon size={hp(3.5)} strokeWidth={4.0} color='black'/>
+            </TouchableOpacity>
           </View>
       </View>
     {isLoading ? (
@@ -113,7 +116,7 @@ const styles = StyleSheet.create({
     marginTop: -15
   },   
   text: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'light'
   },
   item_btn: {
@@ -127,8 +130,8 @@ const styles = StyleSheet.create({
     fontSize: 50
   }, 
   card: {
-    width: 110, 
-    height: 120, 
+    width: wp(27), 
+    height: 110, 
     justifyContent: 'center', 
     alignItems: 'center', 
     backgroundColor:'#ffffe0', 
