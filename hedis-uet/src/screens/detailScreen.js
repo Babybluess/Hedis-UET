@@ -92,6 +92,15 @@ export default function DetailScreen(props) {
           <View style={styles.item_btn}>
             <SearchBar message={message} navigation={navigation} audio={audio}/>
             {
+              item.id == 1 
+              ? 
+              <TouchableOpacity onPress={() => navigation.navigate('Add Item', {...item})} style={{width: wp(85), height: hp(15), justifyContent: 'center', alignItems: 'center', backgroundColor: '#F4F4F4', marginBottom: 10, borderRadius: 10, borderWidth: 1, borderColor: 'grey', borderStyle: 'dashed', flexDirection: 'row', marginVertical: 10 }}>
+                <Image source={require('../../assets/image/general/plus.png')} style={{width: 20, height: 20}}/>
+                <Image source={require('../../assets/image/favourites/photo_placeholder.png')}/>
+              </TouchableOpacity>
+              : ''
+            }
+            {
               data.map((item, index) => (
                 <Animated.View key={index} entering={FadeInDown.delay(index*100).duration(600).springify().damping(12)}>
                   <TouchableOpacity onPress={() => getData(item)} key={index} style={styles.card}>

@@ -13,6 +13,7 @@ import NameScreen from '../screens/nameScreen';
 import AccountScreen from '../screens/accountScreen';
 import AddPackScreen from '../screens/addPackScreen';
 import packListScreen from '../screens/packListScreen';
+import AddItemScreen from '../screens/addItemScreen';
 
 const Stack = createNativeStackNavigator()
 
@@ -29,6 +30,7 @@ export default function AppNavigation() {
         <Stack.Screen name="Set Account" component={AccountScreen} />
         <Stack.Screen name="Add Package" component={AddPackScreen} />
         <Stack.Screen name="Package List" component={packListScreen} />
+        <Stack.Screen name="Add Item" component={AddItemScreen} />
         <Stack.Screen name="DetailItem" options={{presentation: 'fullScreenModal'}} component={DetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>

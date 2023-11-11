@@ -19,7 +19,7 @@ import {
   import { useNavigation } from "@react-navigation/native";
   import Categories from '../components/categories'
   import Back from '../ultis/backButton';
-  import AddButton from '../components/addButton';
+  import AddPackage from '../components/addPackage';
 
 export default function HomeScreen() {
 
@@ -62,7 +62,7 @@ export default function HomeScreen() {
 
                   )
               )}
-              <AddButton list={list} navigation={navigation}/>
+              <AddPackage list={list} navigation={navigation}/>
             </View>
       </ScrollView>
     </View>

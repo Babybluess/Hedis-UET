@@ -10,7 +10,7 @@ import Tts from 'react-native-tts';
 import * as Speech from 'expo-speech'
 
 
-export default function SearchBar({message, audio}) {
+export default function SearchBar({message}) {
     const [speech, setSpeech] = useState('')
 
     useEffect(() => {

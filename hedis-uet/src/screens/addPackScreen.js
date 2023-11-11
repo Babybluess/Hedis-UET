@@ -49,9 +49,9 @@ export default function AddPackScreen(props) {
         </View>
       </View>
       <View style={styles.mainContext}>
-          <TouchableOpacity onPress={() => navigation.navigate('Package List')} style={{width: wp(85), height: 50, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F4F4F4', marginBottom: 10, borderRadius: 10, borderWidth: 1, borderColor: 'grey', borderStyle: 'dashed', flexDirection: 'row', gap: 10, marginVertical: 10 }}>
+          <TouchableOpacity onPress={() => navigation.navigate('Package List')} style={{width: wp(85), height: 50, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F4F4F4', marginBottom: 10, borderRadius: 10, borderWidth: 1, borderColor: 'grey', borderStyle: 'dashed', flexDirection: 'row', gap: 2, marginVertical: 10 }}>
               <Image source={require('../../assets/image/general/plus.png')} style={{width: 20, height: 20}}/>
-              <Text style={styles.tittle}>Add Packs</Text>
+              <Text style={styles.tittle}>Thêm gói</Text>
           </TouchableOpacity>
           <View style={{gap: 20}}>
             { subject.map((item, index) => (

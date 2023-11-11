@@ -37,7 +37,7 @@ export default function PackListScreen() {
         }>
         <View style={styles.header_btn}>
           <Back/>
-          <Text style={styles.tittle}>Additional Packages</Text>
+          <Text style={styles.tittle}>Thêm gói</Text>
         </View>
         <View style={styles.mainContext}>
         { subject.map((item, index) => (
@@ -81,10 +81,10 @@ const styles = StyleSheet.create({
     alignItems: 'start',
     justifyContent: 'space-between',
     paddingLeft: 15,
-    paddingVertical: 20,
+    paddingVertical: 25,
   },
   tittle: {
-      fontSize: 24,
+      fontSize: 32,
       fontWeight: 'bold',
       color: 'white',
   },
