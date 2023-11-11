@@ -10,7 +10,7 @@ import {
 import Loading from '../components/loading';
 import CustomButton from '../components/customButton';
 import SearchBar from '../components/searchBar';
-import Card from '../components/card';
+import * as Speech from 'expo-speech'
 
 
 export default function DetailScreen(props) {
@@ -20,6 +20,7 @@ export default function DetailScreen(props) {
   const[isLoading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false);
   const [message, setMessage] = useState('')
+  const [audio, setAudio] = useState('')
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -34,7 +35,7 @@ export default function DetailScreen(props) {
   }, [data.length]);
   
   const getPackageData = async(name) => {
-    const url = `https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/Qma6yFrhvNuGz2KcVAAqTLUuRczCvLk9P2reKTMwSiVyx7/${name}.json`;
+    const url = `https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmRpcj3bFWumzLL8fKLjd9afZXDULfsRfk3nV7EHJ1MK6y/${name}.json`;
     
     const response = await fetch(url);
     const text = await response.json();
@@ -51,6 +52,15 @@ export default function DetailScreen(props) {
   useEffect(() => {
     console.log('message', message)
   },[message])
+
+  useEffect(() => {
+    console.log('audio', audio)
+  },[audio])
+
+  const getData = (item) => {
+    setMessage(item.name)
+    setAudio(item.audio)
+  }
 
   return (
     <ScrollView style={styles.container}
@@ -70,7 +80,7 @@ export default function DetailScreen(props) {
       <View style={{ justifyContent: 'flex-end',  width: wp(100), height: hp(15), backgroundColor: `#${item.bgColor}`, padding: 10}}>
           <View style={{ flexDirection: 'row', gap: 10, padding: 10, alignItems: 'center'}}>
             <Text style={{fontSize: 32, fontWeight: 'bold'}}>{item.name}</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => Speech.speak(item.name)}>
               <SpeakerWaveIcon size={hp(3.5)} strokeWidth={4.0} color='black'/>
             </TouchableOpacity>
           </View>
@@ -80,11 +90,11 @@ export default function DetailScreen(props) {
       ) : (
       <View style={styles.mainContext}>
           <View style={styles.item_btn}>
-            <SearchBar message={message} navigation={navigation}/>
+            <SearchBar message={message} navigation={navigation} audio={audio}/>
             {
               data.map((item, index) => (
                 <Animated.View key={index} entering={FadeInDown.delay(index*100).duration(600).springify().damping(12)}>
-                  <TouchableOpacity onPress={() => setMessage(item.name)} key={index} style={styles.card}>
+                  <TouchableOpacity onPress={() => getData(item)} key={index} style={styles.card}>
                     <Image style={{objectFit: 'contain', width: 60, height: 75}} source={{uri : item.image}}/>
                     <Text style={styles.text}>{item.name}</Text>
                   </TouchableOpacity>

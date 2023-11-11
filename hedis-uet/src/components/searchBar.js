@@ -1,12 +1,16 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Button } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SpeakerWaveIcon, XMarkIcon } from 'react-native-heroicons/solid'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { useSpeechSynthesis } from 'react-speech-kit';
+import Tts from 'react-native-tts';
+import * as Speech from 'expo-speech'
 
-export default function SearchBar({message}) {
+
+export default function SearchBar({message, audio}) {
     const [speech, setSpeech] = useState('')
 
     useEffect(() => {
@@ -17,14 +21,15 @@ export default function SearchBar({message}) {
     const resetSearch = () => {
       setSpeech("")
     }
-
+    
+  
   return (
     <View style={styles.searchBar}>
         <Text style={styles.textSearch}>{speech}</Text>
         <TouchableOpacity onPress={() => resetSearch()}>
             <XMarkIcon size={hp(3.5)} strokeWidth={4.0} color='black'/>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => Speech.speak(speech)} >
             <SpeakerWaveIcon size={hp(3.5)} strokeWidth={4.0} color='black'/>
         </TouchableOpacity>
   </View>

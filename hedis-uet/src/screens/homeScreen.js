@@ -19,22 +19,12 @@ import {
   import { useNavigation } from "@react-navigation/native";
   import Categories from '../components/categories'
   import Back from '../ultis/backButton';
+  import AddButton from '../components/addButton';
 
 export default function HomeScreen() {
 
  const [search, setSearch]= useState('')
  const list = [1,2,3,4,5,6]
-//  const [access, setAcess] = useState([]);
-
-//  const accessList = () => {
-//   let data = [] 
-//   for(let i = 0;i< subject.length; i++){
-//     data.push(subject[i])
-//    }
-//    return data
-//  }
-
-//  console.log('car', accessList())
 
  const navigation = useNavigation();
  
@@ -72,11 +62,7 @@ export default function HomeScreen() {
 
                   )
               )}
-              <TouchableOpacity onPress={() => navigation.navigate('Add Package', subject)} style={{width: 150, height: 150, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', marginBottom: 10, borderRadius: 10, borderWidth: 1, borderColor: 'grey', borderStyle: 'dashed' }}>
-                    <Image source={require('../../assets/image/general/plus.png')} style={{width: 110, height: 100}}/>
-                    <Text style={styles.text}>Thêm gói</Text>
-              </TouchableOpacity>
-
+              <AddButton list={list} navigation={navigation}/>
             </View>
       </ScrollView>
     </View>

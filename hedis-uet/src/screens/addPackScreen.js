@@ -9,9 +9,10 @@ import {
 import { PlusCircleIcon, MinusCircleIcon } from 'react-native-heroicons/solid';
 import { useNavigation } from '@react-navigation/native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
+import subject from '../constants/subject';
 
 export default function AddPackScreen(props) {
-    const item = props.route.params;
+    const items = props.route.params;
     const [refreshing, setRefreshing] = useState(false);
   
     const onRefresh = useCallback(() => {
@@ -22,11 +23,10 @@ export default function AddPackScreen(props) {
     }, []);
 
     useEffect(() => {
-      console.log('check', item.length)
+      console.log('check', items)
     },[])
 
     const navigation = useNavigation();
-
   return (
     <ScrollView style={styles.container}
             showsVerticalScrollIndicator={false}
@@ -49,28 +49,32 @@ export default function AddPackScreen(props) {
         </View>
       </View>
       <View style={styles.mainContext}>
-          <TouchableOpacity onPress={() => navigation.navigate('Add Package')} style={{width: wp(85), height: 50, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F4F4F4', marginBottom: 10, borderRadius: 10, borderWidth: 1, borderColor: 'grey', borderStyle: 'dashed', flexDirection: 'row', gap: 10, marginVertical: 10 }}>
+          <TouchableOpacity onPress={() => navigation.navigate('Package List')} style={{width: wp(85), height: 50, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F4F4F4', marginBottom: 10, borderRadius: 10, borderWidth: 1, borderColor: 'grey', borderStyle: 'dashed', flexDirection: 'row', gap: 10, marginVertical: 10 }}>
               <Image source={require('../../assets/image/general/plus.png')} style={{width: 20, height: 20}}/>
               <Text style={styles.tittle}>Add Packs</Text>
           </TouchableOpacity>
           <View style={{gap: 20}}>
-            { item.map((object, index) => (
-               <Animated.View key={index} style={{flexDirection: 'row', width: wp(90), justifyContent: 'space-between', alignItems:'center'}} entering={FadeInDown.delay(index*100).duration(600).springify().damping(12)}>
-                  <Pressable onPress={() => navigation.navigate('DetailItem', {...object})} style={{width: 210, height: 95, gap: 20, alignItems: 'center', marginBottom: 5, borderRadius: 10, flexDirection: 'row', paddingHorizontal: 10 }}>
-                    <TouchableOpacity style={{backgroundColor:`#${object.bgColor}`, width: wp(30), height: hp(15), borderRadius: 10, justifyContent:'center', alignItems: 'center'}}>
-                      <Image source={object.image} style={{width: wp(22), height: hp(10)}}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                      <Text style={styles.text}>{object.name}</Text>
-                      <Text></Text>
-                    </TouchableOpacity>
-                  </Pressable>
-                  <TouchableOpacity>
-                      <MinusCircleIcon style={{width: 10, height: 10, backgroundColor: 'white', color : '#9FCB42'}}/>
-                  </TouchableOpacity>
-                </Animated.View>
-            ))
-            }  
+            { subject.map((item, index) => (
+              <>
+                {
+                  item.id == items[index] &&
+                    <Animated.View key={index} style={{flexDirection: 'row', width: wp(90), justifyContent: 'space-between', alignItems:'center'}} entering={FadeInDown.delay(index*100).duration(600).springify().damping(12)}>
+                        <View key={index} style={{width: 210, height: 95, gap: 20, alignItems: 'center', marginBottom: 5, borderRadius: 10, flexDirection: 'row', paddingHorizontal: 10 }}>
+                          <TouchableOpacity onPress={() => navigation.navigate('DetailItem', {...item})} style={{backgroundColor:`#${item.bgColor}`, width: wp(30), height: hp(15), borderRadius: 10, justifyContent:'center', alignItems: 'center'}}>
+                            <Image source={item.image} style={{width: wp(22) + 5, height: hp(10)+ 4}}/>
+                          </TouchableOpacity>
+                          <TouchableOpacity onPress={() => navigation.navigate('DetailItem', {...item})}>
+                            <Text style={styles.text}>{item.name}</Text>
+                            <Text></Text>
+                          </TouchableOpacity>
+                        </View>
+                        <TouchableOpacity>
+                            <MinusCircleIcon style={{width: 10, height: 10, backgroundColor: 'white', color : '#9FCB42'}}/>
+                        </TouchableOpacity>
+                      </Animated.View>
+                }
+              </>
+            ))}  
           </View>
       </View>
     </ScrollView>
