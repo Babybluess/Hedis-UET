@@ -8,8 +8,9 @@ import { Text,
     TextInput,
     ScrollView,
     RefreshControl,
-    ImageBackground, } from 'react-native'
-import React, { useState, useCallback } from 'react'
+    ImageBackground,
+    Pressable, } from 'react-native'
+import React, { useState, useEffect } from 'react'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -20,15 +21,16 @@ import {
   import Categories from '../components/categories'
   import Back from '../ultis/backButton';
   import AddPackage from '../components/addPackage';
+  import BookOpenIcon from 'react-native-heroicons/solid';
+
 
 export default function HomeScreen() {
 
  const [search, setSearch]= useState('')
  const list = [1,2,3,4,5,6]
-
- const navigation = useNavigation();
- 
   
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={{paddingHorizontal: 20}} >
@@ -39,7 +41,7 @@ export default function HomeScreen() {
             </View>
           </View>
           <View style={styles.searchBar}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => updatedFavor()}>
               <Icons.MagnifyingGlassIcon color='black' size={hp(4.5)} strokeWidth={10}/>
             </TouchableOpacity>
             <TextInput
@@ -50,7 +52,7 @@ export default function HomeScreen() {
               keyboardType="default"
             />
           </View>
-            <View style={styles.item_btn}>
+          <View style={styles.item_btn}>
               {   subject.map((items, id) => (
                   
                   <>
@@ -63,11 +65,15 @@ export default function HomeScreen() {
                   )
               )}
               <AddPackage list={list} navigation={navigation}/>
-            </View>
+          </View>
       </ScrollView>
+      <TouchableOpacity onPress={() => navigation.navigate('Flash Card')} style={styles.box}>
+        <Icons.BookOpenIcon color='black' size={hp(4.5)} strokeWidth={10} style={{color: 'white'}}/>
+      </TouchableOpacity>
     </View>
   )
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -123,11 +129,24 @@ const styles = StyleSheet.create({
         width: wp(85),
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+         marginBottom: 40
       },
       text: {
         fontSize: 24,
         fontWeight: 'light',
+      },
+      box: {
+        position: 'absolute',
+        bottom: 20,
+        right: 30,
+        backgroundColor: 'steelblue',
+        borderRadius: 50,
+        width: wp(14),
+        height: hp(7),
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000
       }
 })
 

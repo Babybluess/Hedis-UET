@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View, Image, TextInput} from 'react-native'
+import { Pressable, ScrollView, Button,  StyleSheet, Text, TouchableOpacity, View, Image, TextInput} from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { ChevronLeftIcon, ChevronRightIcon, SpeakerWaveIcon } from 'react-native-heroicons/solid';
@@ -7,17 +7,30 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
   } from "react-native-responsive-screen";
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
+import updatedFavor from '../context/actions/user'
 
-export default function AddItemScreen(props) {
+export default function AddItemScreen(props, {favorList, updatedFavor}) {
 
   const [nameItem, setNameItem] = useState('');
   const item = props.route.params;
+  const [image, setImage] = useState(null)
   const navigation = useNavigation()
 
-  const getImage = async() => {
-    const result = await launchCamera(mediaType);
-  }
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
 
   return (
  <View style={styles.container}>
@@ -30,10 +43,17 @@ export default function AddItemScreen(props) {
             <Text style={{fontSize: 32, fontWeight: 'bold'}}>Tạo bộ sưu tập</Text>
     </View>
     <View style={styles.mainContext}>
-        <View style={{marginVertical: 10}}>
-            <TouchableOpacity onPress={() => getImage()} style={{width: wp(85), height: hp(25), justifyContent: 'center', alignItems: 'center', backgroundColor: '#F4F4F4', borderTopLeftRadius: 10, borderTopRightRadius: 10, borderWidth: 1, borderColor: 'grey', borderStyle: 'dashed', flexDirection: 'row'}}>
-              <Image source={require('../../assets/image/general/plus.png')} style={{width: 20, height: 20}}/>
-              <Image source={require('../../assets/image/favourites/photo_placeholder.png')}/>
+        <View style={{marginVertical: 15}}>
+            <TouchableOpacity onPress={() => pickImage()} style={{width: wp(85), height: hp(30), justifyContent: 'center', alignItems: 'center', backgroundColor: '#F4F4F4', borderTopLeftRadius: 10, borderTopRightRadius: 10, borderWidth: 1, borderColor: 'grey', borderStyle: 'dashed', flexDirection: 'row'}}>
+              {
+                image 
+                ? <Image source={{uri : image}} style={{width: wp(85), height: hp(30),  borderTopLeftRadius: 10, borderTopRightRadius: 10, borderWidth: 1, alignItems: 'center', justifyContent: 'center'}}/>
+                :
+                <>
+                <Image source={require('../../assets/image/general/plus.png')} style={{width: 20, height: 20}}/>
+                <Image source={require('../../assets/image/favourites/photo_placeholder.png')}/>
+                </>
+              }
             </TouchableOpacity>
             <View style={{width: wp(85), height: hp(25), justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8E8E8', borderBottomLeftRadius: 10, borderBottomRightRadius: 10, borderWidth: 1, borderColor: 'grey', borderStyle: 'dashed', gap: 5, borderTopWidth: 0}}>
               <Text style={{color: 'black', fontSize: 18, width: wp(80)}}>Ghi chú:</Text>
@@ -42,7 +62,7 @@ export default function AddItemScreen(props) {
                 onChangeText={(value) => setNameItem(value)}
                 value={nameItem}
                 placeholder="Hãy điền tên của Icon này"
-                keyboardType="numeric"
+                keyboardType="default"
               />
             </View>
         </View>
@@ -52,8 +72,16 @@ export default function AddItemScreen(props) {
         </TouchableOpacity>
       </View>
     </View>
-  </View>
+</View>
   )
+}
+
+const mapStateToProps = (state) => {
+  data: state.favorList.data
+}
+
+const mapDispatchToProps = {
+  updatedFavor
 }
 
 const styles = StyleSheet.create({
