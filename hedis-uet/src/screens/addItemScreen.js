@@ -9,13 +9,16 @@ import {
   } from "react-native-responsive-screen";
 import * as ImagePicker from 'expo-image-picker';
 import updatedFavor from '../context/actions/user'
+import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function AddItemScreen(props, {favorList, updatedFavor}) {
+const AddItemScreen = (props) => {
 
   const [nameItem, setNameItem] = useState('');
   const item = props.route.params;
   const [image, setImage] = useState(null)
   const navigation = useNavigation()
+
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -32,6 +35,7 @@ export default function AddItemScreen(props, {favorList, updatedFavor}) {
     }
   };
 
+  
   return (
  <View style={styles.container}>
     <Animated.View entering={FadeIn.delay(200).duration(1000)} style={{width: wp(100), paddingLeft: 10, paddingTop: 20, backgroundColor: `#${item.bgColor}`}}>
@@ -76,13 +80,9 @@ export default function AddItemScreen(props, {favorList, updatedFavor}) {
   )
 }
 
-const mapStateToProps = (state) => {
-  data: state.favorList.data
-}
 
-const mapDispatchToProps = {
-  updatedFavor
-}
+
+export default AddItemScreen
 
 const styles = StyleSheet.create({
   mainContext: {

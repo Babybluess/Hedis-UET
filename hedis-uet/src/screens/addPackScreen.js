@@ -10,10 +10,18 @@ import { PlusCircleIcon, MinusCircleIcon } from 'react-native-heroicons/solid';
 import { useNavigation } from '@react-navigation/native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import subject from '../constants/subject';
+import { useDispatch, useSelector } from 'react-redux';
+import { updatedScreen, deletePackScreen, updatedAddPack, deletePack } from '../context/actions/user';
 
 export default function AddPackScreen(props) {
     const items = props.route.params;
     const [refreshing, setRefreshing] = useState(false);
+    const packData = useSelector((state) => state.packList)
+    const packScreen = useSelector((state) => state.screenList)
+    const dispatch = useDispatch()
+
+
+    console.log('screenPack', packScreen)
   
     const onRefresh = useCallback(() => {
       setRefreshing(true);
@@ -22,10 +30,24 @@ export default function AddPackScreen(props) {
       }, 2000);
     }, []);
 
+    const addButton = (item) => {
+        dispatch(updatedScreen(item))
+        dispatch(deletePack(item))
+    }
+
+    const deleteButton = (item) => {
+      dispatch(deletePackScreen(item))
+      dispatch(updatedAddPack(item))
+    }
+
     useEffect(() => {
       console.log('check', items)
     },[])
 
+    useEffect(() => {
+      console.log('packData', packData.packList)
+      console.log('packScreen', packScreen.screenList)
+    },[packData, packScreen])
     const navigation = useNavigation();
   return (
     <ScrollView style={styles.container}
@@ -54,10 +76,7 @@ export default function AddPackScreen(props) {
               <Text style={styles.tittle}>Thêm gói</Text>
           </TouchableOpacity>
           <View style={{gap: 20}}>
-            { subject.map((item, index) => (
-              <>
-                {
-                  item.id == items[index] &&
+            { packScreen.screenList.map((item, index) => (
                     <Animated.View key={index} style={{flexDirection: 'row', width: wp(90), justifyContent: 'space-between', alignItems:'center'}} entering={FadeInDown.delay(index*100).duration(600).springify().damping(12)}>
                         <View key={index} style={{width: 210, height: 95, gap: 20, alignItems: 'center', marginBottom: 5, borderRadius: 10, flexDirection: 'row', paddingHorizontal: 10 }}>
                           <TouchableOpacity onPress={() => navigation.navigate('DetailItem', {...item})} style={{backgroundColor:`#${item.bgColor}`, width: wp(30), height: hp(15), borderRadius: 10, justifyContent:'center', alignItems: 'center'}}>
@@ -68,13 +87,31 @@ export default function AddPackScreen(props) {
                             <Text></Text>
                           </TouchableOpacity>
                         </View>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => deleteButton(item)}>
                             <MinusCircleIcon style={{width: 10, height: 10, backgroundColor: 'white', color : '#9FCB42'}}/>
                         </TouchableOpacity>
+                    </Animated.View>
+            ))
+            } 
+            {
+              
+              packData.packList.length >= 1 && packData.packList.map((item, index) => (
+                <Animated.View key={index} style={{flexDirection: 'row', width: wp(90), justifyContent: 'space-between', alignItems:'center'}} entering={FadeInDown.delay(index*100).duration(600).springify().damping(12)}>
+                        <View key={index} style={{width: 210, height: 95, gap: 20, alignItems: 'center', marginBottom: 5, borderRadius: 10, flexDirection: 'row', paddingHorizontal: 10 }}>
+                          <TouchableOpacity onPress={() => navigation.navigate('DetailItem', {...item})} style={{backgroundColor:`#${item.bgColor}`, width: wp(30), height: hp(15), borderRadius: 10, justifyContent:'center', alignItems: 'center'}}>
+                            <Image source={item.image} style={{width: wp(22) + 5, height: hp(10)+ 4}}/>
+                          </TouchableOpacity>
+                          <TouchableOpacity onPress={() => navigation.navigate('DetailItem', {...item})}>
+                            <Text style={styles.text}>{item.name}</Text>
+                            <Text></Text>
+                          </TouchableOpacity>
+                        </View>
+                        <TouchableOpacity onPress={() => addButton(item)}>
+                            <PlusCircleIcon style={{width: 10, height: 10, backgroundColor: 'white', color : '#9FCB42'}}/>
+                        </TouchableOpacity>
                       </Animated.View>
-                }
-              </>
-            ))}  
+              ))
+            } 
           </View>
       </View>
     </ScrollView>

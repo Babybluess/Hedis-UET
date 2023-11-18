@@ -5,51 +5,42 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
   } from "react-native-responsive-screen";
-import { StackActions, CommonActions } from '@react-navigation/native';
-import subject from '../constants/subject';
+import { useSelector } from 'react-redux';
 
-export default function CustomButton({index, navigation, searchContext}) {
-  const[preList, setPrelist] = useState({bgColor: "FFFFFF"})
-  const[nextList, setNextlist] = useState({bgColor: "FFFFFF"})
 
-    useEffect(() => {
-      if(index > 1) {
-        setPrelist(subject[index - 2])
-      }
-      if(index < 6) {
-        setNextlist(subject[index])
-      }
-    }, [index])
+export default function CustomButton({index, navigation}) {
+  const packScreen = useSelector((state) => state.screenList)
+  const lengthPackScreen = packScreen.screenList.length
+
+  console.log('length', lengthPackScreen)
 
   return (
     <View style={styles.routerBtn}>
     {
-      preList.bgColor && nextList.bgColor && (
       <>
         {
-          index > 1 && (
+          index > 0 && (
             <TouchableOpacity  onPress={() =>
-                navigation.navigate('DetailItem', {...preList})}
-              style={{width: 160, height: 40, borderRadius: 20, flexDirection: 'row', gap: 5, backgroundColor:`#${preList.bgColor}`, justifyContent: 'center', alignItems: 'center' }}>
+                navigation.navigate('DetailItem', {...packScreen.screenList[index - 1]})}
+              style={{width: 160, height: 40, borderRadius: 20, flexDirection: 'row', gap: 5, backgroundColor:`#${packScreen.screenList[index - 1].bgColor}`, justifyContent: 'center', alignItems: 'center' }}>
                 <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#fbbf24" />
-                <Image style={{objectFit: 'contain',  width: 35, height: 50}} source={preList.image}/>
-                <Text style={styles.text}>{preList.name}</Text>
+                <Image style={{objectFit: 'contain',  width: 35, height: 50}} source={packScreen.screenList[index - 1].image}/>
+                <Text style={styles.text}>{packScreen.screenList[index - 1].name}</Text>
             </TouchableOpacity>
           )
         }
         {
-          index < 6 && (
+          index < lengthPackScreen - 1 && (
             <TouchableOpacity  onPress={() =>
-                  navigation.navigate('DetailItem', {...nextList})}
-                style={{width: 160, height: 40, borderRadius: 20, flexDirection: 'row', gap: 5, backgroundColor:`#${nextList.bgColor}`, justifyContent: 'center', alignItems: 'center' }}>
-                  <Text style={styles.text}>{nextList.name}</Text>
-                  <Image style={{objectFit: 'contain', width: 35, height: 50}} source={nextList.image}/>
+                  navigation.navigate('DetailItem', {...packScreen.screenList[index + 1]})}
+                style={{width: 160, height: 40, borderRadius: 20, flexDirection: 'row', gap: 5, backgroundColor:`#${packScreen.screenList[index + 1].bgColor}`, justifyContent: 'center', alignItems: 'center' }}>
+                  <Text style={styles.text}>{packScreen.screenList[index + 1].name}</Text>
+                  <Image style={{objectFit: 'contain', width: 35, height: 50}} source={packScreen.screenList[index + 1].image}/>
                   <ChevronRightIcon size={hp(3.5)} strokeWidth={4.5} color="#fbbf24" />
               </TouchableOpacity>
           )
         }
       </>
-      )
     }
   </View>
   )

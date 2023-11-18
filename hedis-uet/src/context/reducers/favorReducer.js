@@ -1,13 +1,13 @@
 const initialState = {
-  data : ''
+  favorList : []
 }
 
-const FavorReducer = (state = initialState, action,) => {
+const FavorReducer = (state = initialState, action) => {
     switch(action.type){
       case 'UPDATEDFAVOR': 
           return {
             ...state,
-            data : state.data
+            favorList: action.favorList
           }
         default:
           return state

@@ -1,19 +1,25 @@
-import { RefreshControl, ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, Pressable } from 'react-native'
+import { RefreshControl, ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, Pressable, Alert, Modal } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import Back from '../ultis/backButton';
-import { CheckBadgeIcon } from 'react-native-heroicons/solid';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { PlusCircleIcon} from 'react-native-heroicons/solid';
 import { useNavigation } from '@react-navigation/native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import subject from '../constants/subject';
+import { useDispatch, useSelector } from 'react-redux';
+import { updatedAddPack } from '../context/actions/user'
+import { XCircleIcon } from 'react-native-heroicons/solid';
 
-export default function PackListScreen() {
+const PackListScreen = () => {
 
   const [refreshing, setRefreshing] = useState(false);
+  const [list, setList] = useState([subject[6], subject[7], subject[8], subject[9]])
+  const packData = useSelector((state) => state.packList)
+  const dispatch = useDispatch()
+  const [modalVisible, setModalVisible] = useState(false);
+
   
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -21,9 +27,8 @@ export default function PackListScreen() {
       setRefreshing(false);
     }, 2000);
   }, []);
+  
 
-  const [addList, setAddList] = useState([7, 8])
-  const [buyList, setBuyList] = useState([9, 10])
   const navigation = useNavigation();
   return (
   <View style={styles.container}>
@@ -40,10 +45,9 @@ export default function PackListScreen() {
           <Text style={styles.tittle}>Thêm gói</Text>
         </View>
         <View style={styles.mainContext}>
-        { subject.map((item, index) => (
+        { list.filter(x => !packData.packList.includes(x)).map((item, index) => (
               <>
                 {
-                  item.id > 6 &&
                     <Animated.View key={index} style={{flexDirection: 'row', width: wp(95), justifyContent: 'space-between', alignItems:'center'}} entering={FadeInDown.delay(index*100).duration(600).springify().damping(12)}>
                         <View key={index} style={{width: 210, height: 95, gap: 20, alignItems: 'center', marginBottom: 5, borderRadius: 10, flexDirection: 'row', paddingHorizontal: 10 }}>
                           <TouchableOpacity onPress={() => navigation.navigate('DetailItem', {...item})} style={{backgroundColor:`#${item.bgColor}`, width: wp(30), height: hp(15), borderRadius: 10, justifyContent:'center', alignItems: 'center'}}>
@@ -54,18 +58,52 @@ export default function PackListScreen() {
                             <Text></Text>
                           </TouchableOpacity>
                         </View>
-                        <TouchableOpacity style={styles.button_btn}>
-                            <Text style={{ color: 'white'}}>{`${item.id < 9 ? 'Thêm' : 'Premium'}`}</Text>
-                        </TouchableOpacity>
+                              {
+                                item.id < 9 
+                                ? 
+                                <TouchableOpacity style={styles.button_btn}  onPress={() => dispatch(updatedAddPack(item))}>
+                                  <Text style={{ color: 'white'}}>Thêm</Text>
+                                </TouchableOpacity>
+                                : 
+                                <>
+                                    <Modal
+                                      animationType="slide"
+                                      transparent={true}
+                                      visible={modalVisible}
+                                      onRequestClose={() => {
+                                        Alert.alert('Modal has been closed.');
+                                        setModalVisible(!modalVisible);
+                                      }}>
+                                      <View style={styles.containerModal}>
+                                        <View style={styles.modalView}>
+                                          <Text style={styles.text}>Scan QR code to pay</Text>
+                                          <Image source={require('../../assets/image/QR.jpg')} style={{width: wp(80), height: hp(40), borderRadius: 15}}/>
+                                          <Pressable
+                                            style={{width: wp(5), height: hp(5)}}
+                                            onPress={() => setModalVisible(!modalVisible)}>
+                                            <XCircleIcon style={{color: 'black'}}/>
+                                          </Pressable>
+                                        </View>
+                                      </View>
+                                    </Modal>
+                                    <TouchableOpacity style={styles.button_btn} onPress={() => setModalVisible(true)}>
+                                      <Text style={{ color: 'white'}}>Premium</Text>
+                                    </TouchableOpacity>
+                                </>
+                              }       
                       </Animated.View>
                 }
               </>
-            ))}  
+            ))} 
         </View>
     </ScrollView>
   </View>  
   )
 }
+
+
+
+export default PackListScreen
 
 const styles = StyleSheet.create({
   container: {
@@ -110,5 +148,22 @@ const styles = StyleSheet.create({
    text: {
     fontSize: 22,
     fontWeight: '500'
+  },
+  modalView: {
+    width: wp(90),
+    height: hp(60),
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 30
+  },
+  containerModal: {
+    width: wp(95),
+    height: hp(65),
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#778899',
+    borderRadius: 20,
+    marginHorizontal: wp(2.5),
+    marginVertical: hp(21)
   }
 })

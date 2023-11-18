@@ -11,6 +11,7 @@ import Loading from '../components/loading';
 import CustomButton from '../components/customButton';
 import SearchBar from '../components/searchBar';
 import * as Speech from 'expo-speech'
+import { useSelector } from 'react-redux';
 
 
 export default function DetailScreen(props) {
@@ -21,6 +22,10 @@ export default function DetailScreen(props) {
   const [refreshing, setRefreshing] = useState(false);
   const [message, setMessage] = useState('')
   const [audio, setAudio] = useState('')
+  const packScreen = useSelector((state) => state.screenList)
+  const positionFc = (element) => element.id == item.id
+  const currentIndex = packScreen.screenList.findIndex(positionFc)
+  console.log("current index", currentIndex)
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -111,7 +116,7 @@ export default function DetailScreen(props) {
               ))
             }
           </View>
-          <CustomButton index={item.id} navigation={navigation}/>
+          <CustomButton index={currentIndex} navigation={navigation}/>
        </View>
       )
     }

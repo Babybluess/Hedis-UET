@@ -22,11 +22,13 @@ import {
   import Back from '../ultis/backButton';
   import AddPackage from '../components/addPackage';
   import BookOpenIcon from 'react-native-heroicons/solid';
+import { useSelector } from 'react-redux';
 
 
 export default function HomeScreen() {
 
  const [search, setSearch]= useState('')
+ const packScreen = useSelector((state) => state.screenList)
  const list = [1,2,3,4,5,6]
   
   const navigation = useNavigation();
@@ -53,15 +55,8 @@ export default function HomeScreen() {
             />
           </View>
           <View style={styles.item_btn}>
-              {   subject.map((items, id) => (
-                  
-                  <>
-                    { 
-                      id < 6 &&
-                      <Categories key={id} item={items} index={id} navigation={navigation}/>
-                    }
-                  </>
-
+              {   packScreen.screenList.map((items, id) => (
+                    <Categories key={id} item={items} index={id} navigation={navigation}/>
                   )
               )}
               <AddPackage list={list} navigation={navigation}/>
