@@ -18,6 +18,7 @@ const PackListScreen = () => {
   const [list, setList] = useState([subject[6], subject[7], subject[8], subject[9]])
   const packData = useSelector((state) => state.packList)
   const dispatch = useDispatch()
+  const [modalVisible, setModalVisible] = useState(false);
 
   
   const onRefresh = useCallback(() => {
