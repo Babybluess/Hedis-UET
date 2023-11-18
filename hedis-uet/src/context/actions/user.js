@@ -11,7 +11,12 @@ export const updateUser = (_name, _image, _email, _password) => ({
 
 export const updatedFavor = (list) => ({
     type: 'UPDATEDFAVOR',
-    favorList: list
+    favor: list
+})
+
+export const deletedFavor = (list) => ({
+    type: 'DELETEDFAVOR',
+    favor: list
 })
 
 export const updatedAddPack = (list) => ({

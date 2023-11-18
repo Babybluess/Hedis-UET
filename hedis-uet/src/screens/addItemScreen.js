@@ -8,9 +8,9 @@ import {
   heightPercentageToDP as hp,
   } from "react-native-responsive-screen";
 import * as ImagePicker from 'expo-image-picker';
-import updatedFavor from '../context/actions/user'
 import { connect } from 'react-redux'
 import { useDispatch, useSelector } from 'react-redux';
+import { updatedFavor } from '../context/actions/user';
 
 const AddItemScreen = (props) => {
 
@@ -18,6 +18,8 @@ const AddItemScreen = (props) => {
   const item = props.route.params;
   const [image, setImage] = useState(null)
   const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const favorList = useSelector(state => state.favorList)
 
 
   const pickImage = async () => {
@@ -35,6 +37,17 @@ const AddItemScreen = (props) => {
     }
   };
 
+  const newItem = {Name: nameItem, Image: image}
+
+  const createItem = () => {
+    setNameItem('')
+    setImage(null)
+    dispatch(updatedFavor(newItem))
+  }
+
+  useEffect(() => {
+    console.log('favor', favorList)
+  },[favorList])
   
   return (
  <View style={styles.container}>
@@ -71,7 +84,7 @@ const AddItemScreen = (props) => {
             </View>
         </View>
         <View>
-        <TouchableOpacity style={styles.button} onPress={()=> navigation.goBack()}>
+        <TouchableOpacity style={styles.button} onPress={() => createItem()}>
             <Text style={{ color: 'white'}}>Lưu</Text>
         </TouchableOpacity>
       </View>

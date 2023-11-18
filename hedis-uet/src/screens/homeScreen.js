@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
-         marginBottom: 40
+        marginBottom: 40
       },
       text: {
         fontSize: 24,

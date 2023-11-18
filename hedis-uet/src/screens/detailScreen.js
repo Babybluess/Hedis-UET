@@ -1,7 +1,7 @@
-import { Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View, Image, RefreshControl, Button } from 'react-native'
+import { Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View, Image, RefreshControl, Button, Modal, TextInput } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { ChevronLeftIcon, ChevronRightIcon, SpeakerWaveIcon } from 'react-native-heroicons/solid';
+import { ChevronLeftIcon, ChevronRightIcon, SpeakerWaveIcon, XCircleIcon } from 'react-native-heroicons/solid';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import {
   widthPercentageToDP as wp,
@@ -11,8 +11,9 @@ import Loading from '../components/loading';
 import CustomButton from '../components/customButton';
 import SearchBar from '../components/searchBar';
 import * as Speech from 'expo-speech'
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { deletedFavor, updatedFavor } from '../context/actions/user';
+import * as ImagePicker from 'expo-image-picker';
 
 export default function DetailScreen(props) {
   const item = props.route.params;
@@ -25,6 +26,16 @@ export default function DetailScreen(props) {
   const packScreen = useSelector((state) => state.screenList)
   const positionFc = (element) => element.id == item.id
   const currentIndex = packScreen.screenList.findIndex(positionFc)
+  const favorList = useSelector(state => state.favorList)
+  const [modalVisible, setModalVisible] = useState(false);
+  const dispatch = useDispatch()
+  const [getName, setName] = useState('')
+  const [getImage, setImage] = useState('')
+  const [getItem, setItem] = useState()
+  const [adjust, setAdujst] = useState(false)
+  const [newName, setNewName] = useState()
+  const [newImage, setNewImage] = useState()
+
   console.log("current index", currentIndex)
 
   const onRefresh = useCallback(() => {
@@ -49,6 +60,41 @@ export default function DetailScreen(props) {
     setLoading(false)    
   };
 
+  const showModal = (item) => {
+    setModalVisible(true)
+    setName(item.Name)
+    setImage(item.Image)
+    setItem(item)
+    setNewImage(item.Image)
+    setNewName(item.Name)
+  }
+
+  const deleteItem = () =>{
+    dispatch(deletedFavor(getItem))
+    setModalVisible(false)
+  }
+
+  const adjustButton = () => {
+    const adjustItem = {Name: newName, Image: newImage}
+    dispatch(updatedFavor(adjustItem))
+    setAdujst(false)
+    setModalVisible(false)
+  }
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setNewImage(result.assets[0].uri);
+    }
+  };
 
   useEffect(() => {
     getPackageData(item.idName)
@@ -106,6 +152,79 @@ export default function DetailScreen(props) {
               : ''
             }
             {
+              <>
+                {
+                  <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                      Alert.alert('Modal has been closed.');
+                      setModalVisible(!modalVisible);
+                    }}>
+                      <View style={styles.containerModal}>
+                        <View style={styles.modalView}>
+                          <View style={{width: wp(80), alignItems: 'flex-end'}}>
+                              <TouchableOpacity
+                                style={{width: wp(5), height: hp(5)}}
+                                onPress={() => setModalVisible(!modalVisible)}>
+                                <XCircleIcon style={{color: '#8fbc8f'}}/>
+                              </TouchableOpacity>                            
+                          </View>
+                          
+                          {
+                            adjust 
+                            ? 
+                            <>
+                              <TouchableOpacity onPress={() => pickImage()}>
+                                <Image source={{uri: newImage}} style={{width: wp(80), height: hp(40), borderRadius: 15}}/>
+                              </TouchableOpacity>
+                              <TextInput
+                                style={styles.input}
+                                onChangeText={(value) => setNewName(value)}
+                                value={newName}
+                                placeholder="Hãy điền tên mới cho Icon này"
+                                keyboardType="default"
+                              />
+                            </>
+                            : 
+                            <>
+                              <Image source={{uri: getImage}} style={{width: wp(80), height: hp(40), borderRadius: 15}}/>
+                              <Text style={{ fontSize: 20, fontWeight: 500}}>Tittle: {getName}</Text>
+                            </>
+                          }
+                          {
+                            adjust 
+                            ?
+                            <TouchableOpacity onPress={() => adjustButton()} style={{width: wp(30), height: 20, backgroundColor: '#ff7f50', borderRadius: 10, justifyContent: 'center', alignItems: 'center'}}>
+                                <Text>Confirm change</Text>
+                            </TouchableOpacity>
+                            :
+                            <View style={styles.button_btn}>
+                                <TouchableOpacity style={styles.button} onPress={() => deleteItem()}>
+                                    <Text>Xóa</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.button} onPress={() => setAdujst(true)}>
+                                  <Text>Chỉnh sửa</Text>
+                                </TouchableOpacity>
+                            </View>
+                          }
+                        </View>
+                      </View>
+                  </Modal>
+                }
+                {
+                item.id == 1 && favorList.favorList.map((item, index) => (
+                  <Animated.View key={index} entering={FadeInDown.delay(index*100).duration(600).springify().damping(12)}>
+                    <TouchableOpacity onPress={() => showModal(item)} key={index} style={styles.card}>
+                      <Image style={{objectFit: 'cover', width: wp(27), height: 110, borderRadius: 10}} source={{uri : item.Image}}/>
+                    </TouchableOpacity>
+                  </Animated.View>
+                ))
+                }
+              </>
+            }
+            {
               data.map((item, index) => (
                 <Animated.View key={index} entering={FadeInDown.delay(index*100).duration(600).springify().damping(12)}>
                   <TouchableOpacity onPress={() => getData(item)} key={index} style={styles.card}>
@@ -147,7 +266,7 @@ const styles = StyleSheet.create({
     width: wp(85),
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between'
+    gap: wp(1.5)
   },
   loading: {
     marginTop: 20,
@@ -179,4 +298,41 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  modalView: {
+    width: wp(90),
+    height: hp(60),
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 5
+  },
+  containerModal: {
+    width: wp(95),
+    height: hp(65),
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#778899',
+    borderRadius: 20,
+    marginHorizontal: wp(2.5),
+    marginVertical: hp(21)
+  },
+  button_btn: {
+    flexDirection: 'row',
+    width: wp(50),
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  button: {
+    backgroundColor: "#5D7E86",
+    width: 80,
+    height: 30,
+    borderRadius: 30, 
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  input: {
+    width: wp(80),
+    height: hp(10),
+    backgroundColor: 'white',
+    borderRadius: 10
+  }
 })

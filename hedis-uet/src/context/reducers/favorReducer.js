@@ -7,7 +7,12 @@ const FavorReducer = (state = initialState, action) => {
       case 'UPDATEDFAVOR': 
           return {
             ...state,
-            favorList: action.favorList
+            favorList: state.favorList.concat(action.favor)
+          }
+      case 'DELETEDFAVOR': 
+          return {
+            ...state,
+            favorList: state.favorList.filter((x) => x !== action.favor)
           }
         default:
           return state
