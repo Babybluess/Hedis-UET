@@ -7,12 +7,19 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
   } from "react-native-responsive-screen";
+  import { ActivityIndicator } from 'react-native';
+  import { useDispatch, useSelector } from 'react-redux';
+  import { updatedImage } from '../context/actions/user';
 
 export default function AccountScreen() {
 
   const navigation = useNavigation();
   const [accImage, setAccImage] = useState('')
   const [isSelected, setSelected] = useState()
+  const [data, setData] = useState([])
+  const [isLoading, setLoading] = useState(true)
+  const dispatch = useDispatch()
+ 
 
   const ring1padding = useSharedValue(0);
   useEffect(()=>{
@@ -25,6 +32,27 @@ const selectImage = (item) =>{
   setAccImage(item.image)
 }
 
+
+const getImageData = async() => {
+  const url = 'https://ivory-necessary-cougar-154.mypinata.cloud/ipfs/QmTUDuWqD3AVwvqpcuBpR8opBBU6nySSFX8w8wDZ5N8uGj?_gl=1*1j13jsv*_ga*MTM1MDY3NTUzNC4xNjk2Nzc5Nzc3*_ga_5RMPXG14TE*MTcwMDMzMzUwNy42Mi4xLjE3MDAzMzQwNDEuNjAuMC4w';
+  
+  const response = await fetch(url);
+  const text = await response.json();
+  
+  setData(text.accountImage)
+  setLoading(false)    
+};
+
+useEffect(() => {
+  getImageData()
+},[])
+
+const selectImageAccount = () => {
+    dispatch(updatedImage(accImage))
+    navigation.navigate('Log In')
+}
+
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
@@ -33,19 +61,23 @@ const selectImage = (item) =>{
       </View>
       <View  style={styles.image_btn}>
           {
-              accountImage.map((item, id) => (
+            isLoading 
+            ?
+             <ActivityIndicator size="large" color="#000ff"/>
+            :
+              data.map((item, id) => (
                 <Animated.View key={id} entering={FadeInDown.delay(id*100).duration(600).springify().damping(12)}>  
-                  <TouchableOpacity onPress={() => selectImage(item)}  style={ isSelected == id + 1 ? styles.hoverStyle : styles.imageBox}>
+                  <TouchableOpacity onPress={() => selectImage(item)}  style={ isSelected == item.id ? styles.hoverStyle : styles.imageBox}>
                         <Image
-                          style={isSelected == id + 1 ? styles.hoverImage : styles.image}
-                          source={item.image}
+                          style={isSelected == item.id ? styles.hoverImage : styles.image}
+                          source={{uri : item.image}}
                         />
                   </TouchableOpacity>
               </Animated.View>  
               ))
           }
       </View>
-      <TouchableOpacity style={styles.button_btn}  onPress={() => navigation.navigate('Log In')}>
+      <TouchableOpacity style={styles.button_btn}  onPress={() => selectImageAccount()}>
         <Text style={styles.textButton}>Next</Text>
       </TouchableOpacity>
     </View>
@@ -78,7 +110,7 @@ const styles = StyleSheet.create({
   },
   image_btn: {
     flexDirection: 'row',
-    width: wp(90),
+    width: wp(95),
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',

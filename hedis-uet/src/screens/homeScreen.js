@@ -30,17 +30,36 @@ export default function HomeScreen() {
  const [search, setSearch]= useState('')
  const packScreen = useSelector((state) => state.screenList)
  const list = [1,2,3,4,5,6]
-  
+ const imgAccount = useSelector(state => state.userData.image)
+ const nameAccount = useSelector(state => state.userData.name)
+ const emailAccount = useSelector(state => state.userData.email)
+ const logInAccount = useSelector(state => state.userData.currentAccount) 
+ const checkAccount = emailAccount == logInAccount
+
+ console.log('check', emailAccount, logInAccount)
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
       <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={{paddingHorizontal: 20}} >
           <View style={styles.header}>
-            <Text style={styles.title}>Xin chào bạn</Text>
-            <View style={styles.bgAccount}>
-              <Image source={require('../../assets/image/defaultAccount.png')}/>
-            </View>
+            {
+              checkAccount == true
+              ?
+              <>
+                <Text style={styles.title}>Xin chào {nameAccount}</Text>
+                <View style={styles.bgAccount}>
+                  <Image source={{uri: imgAccount}} style={{width: hp(8), height: hp(8), borderRadius: 80, objectFit: 'cover'}}/>
+                </View>
+              </>
+              :
+              <>
+              <Text style={{fontSize: 28, fontWeight: 'bold'}}>Xin chào bạn</Text>
+              <View style={styles.defaultAccount}>
+                <Image source={require('../../assets/image/defaultAccount.png')}/>
+              </View>
+              </>
+            }
           </View>
           <View style={styles.searchBar}>
             <TouchableOpacity onPress={() => updatedFavor()}>
@@ -86,7 +105,7 @@ const styles = StyleSheet.create({
         marginVertical: 20
       },
       title: {
-        fontSize: 28,
+        fontSize: 22,
         fontWeight: 'bold',
         width: 200,
       },
@@ -99,7 +118,6 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#0095D3',
         shadowColor: 'black'
       },
       searchBar: {
@@ -142,6 +160,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: 1000
+      },
+      defaultAccount: {
+        flexDirection: 'row',
+        width: 65,
+        height: 60,
+        borderRadius: 110,
+        borderWidth: 1,
+        borderColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#0095D3',
+        shadowColor: 'black'
       }
 })
 

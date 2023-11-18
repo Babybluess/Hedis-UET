@@ -12,17 +12,26 @@ import { Text,
   } from "react-native-responsive-screen";
   import { useNavigation } from "@react-navigation/native";
   import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
+  import { useDispatch, useSelector } from 'react-redux';
+  import { updatedName } from '../context/actions/user';
 
 export default function NameScreen() {
 
   const navigation = useNavigation();
   const [name, setName] = useState('')
+  const dispatch = useDispatch()
 
   const ring1padding = useSharedValue(0);
   useEffect(()=>{
     ring1padding.value = 0;
     setTimeout(()=> ring1padding.value = withSpring(ring1padding.value+hp(5)), 300);
 },[])
+
+const createName  = () => {
+  dispatch(updatedName(name))
+  navigation.navigate('Set Account')
+}
+
 
   return (
     <View style={styles.container}>
@@ -41,7 +50,7 @@ export default function NameScreen() {
           keyboardType="email-address"
         />
       </View>
-      <TouchableOpacity style={styles.button_btn}  onPress={() => navigation.navigate('Set Account')}>
+      <TouchableOpacity style={styles.button_btn}  onPress={() => createName()}>
         <Text style={styles.textButton}>Next</Text>
       </TouchableOpacity>
       <View style={styles.bottom}>

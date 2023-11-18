@@ -1,12 +1,28 @@
+import { current } from "@reduxjs/toolkit"
 
-export const updateUser = (_name, _image, _email, _password) => ({
-    type: 'UPDATEDUSER',
-    dataUser: {
-        name: _name,
-        email: _email,
-        password: _password,
-        image: _image
-    }  
+export const updatedName = (name) => ({
+    type: 'UPDATEDNAME',
+    nameUser:  name
+})
+
+export const updatedEmail = (email) => ({
+    type: 'UPDATEDEMAIL',
+    emailUser: email
+})
+
+export const updatedImage = (image) => ({
+    type: 'UPDATEDIMAGE',
+    imageUser: image
+})
+
+export const updatedPassword = (pass) => ({
+    type : 'UPDATEDPASSWORD',
+    passUser: pass
+})
+
+export const updatedCurrentAccount = (currentAccount) => ({
+    type: 'UPDATEDCURRENTACCOUNT',
+    account: currentAccount    
 })
 
 export const updatedFavor = (list) => ({
