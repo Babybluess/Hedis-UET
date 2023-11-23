@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Button } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { SpeakerWaveIcon, XMarkIcon } from 'react-native-heroicons/solid'
+import { SpeakerWaveIcon, XMarkIcon, BackwardIcon } from 'react-native-heroicons/solid'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
@@ -18,14 +18,21 @@ export default function SearchBar({message}) {
       console.log("speech", speech)    
     }, [message])
 
+    const backSearch = () => {
+      setSpeech(speech.slice(0, speech.length - message.length - 1))
+    }
+
     const resetSearch = () => {
-      setSpeech("")
+      setSpeech('')
     }
     
   
   return (
     <View style={styles.searchBar}>
         <Text style={styles.textSearch}>{speech}</Text>
+        <TouchableOpacity onPress={() => backSearch()}>
+            <BackwardIcon size={hp(3.5)} strokeWidth={4.0} color='black'/>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => resetSearch()}>
             <XMarkIcon size={hp(3.5)} strokeWidth={4.0} color='black'/>
         </TouchableOpacity>
@@ -50,7 +57,7 @@ const styles = StyleSheet.create({
         marginVertical: 20
       },
       textSearch: {
-        width: wp(60),
+        width: wp(50),
         color: 'white',
         fontWeight: '600'
       }, 
