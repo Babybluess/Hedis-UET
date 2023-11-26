@@ -1,5 +1,6 @@
 # Hedis-UET, this is a app for autistic children!
 - Deploy in EAS Update. EAS Update is the next generation of Expo's updates service.
+- Install Expo and scan QR Code to use.
 ## Hedis-UET in Android Platform:
 
 QR Code: 
