@@ -78,7 +78,7 @@ export default function HomeScreen() {
                     <Categories key={id} item={items} index={id} navigation={navigation}/>
                   )
               )}
-              <AddPackage list={list} navigation={navigation}/>
+              <AddPackage navigation={navigation} isLogIn={checkAccount}/>
           </View>
       </ScrollView>
       <TouchableOpacity onPress={() => navigation.navigate('Flash Card')} style={styles.box}>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
       },
       bgAccount: {
         flexDirection: 'row',
-        width: 65,
+        width: 60,
         height: 60,
         borderRadius: 110,
         borderWidth: 1,
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
       },
       defaultAccount: {
         flexDirection: 'row',
-        width: 65,
+        width: 60,
         height: 60,
         borderRadius: 110,
         borderWidth: 1,

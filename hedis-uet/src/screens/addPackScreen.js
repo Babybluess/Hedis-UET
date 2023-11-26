@@ -14,10 +14,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updatedScreen, deletePackScreen, updatedAddPack, deletePack } from '../context/actions/user';
 
 export default function AddPackScreen(props) {
-    const items = props.route.params;
+    const isLogIn = props.route.params;
     const [refreshing, setRefreshing] = useState(false);
     const packData = useSelector((state) => state.packList)
     const packScreen = useSelector((state) => state.screenList)
+    const imgAccount = useSelector(state => state.userData.image)
+    const nameAccount = useSelector(state => state.userData.name)
     const dispatch = useDispatch()
 
 
@@ -41,7 +43,7 @@ export default function AddPackScreen(props) {
     }
 
     useEffect(() => {
-      console.log('check', items)
+      console.log('check', isLogIn)
     },[])
 
     useEffect(() => {
@@ -63,11 +65,24 @@ export default function AddPackScreen(props) {
             <Back/>
             <CheckBadgeIcon style={{marginTop: 20}} size={hp(4.5)} strokeWidth={4.5} color="#0095D3" />
         </View>
-        <View>
-          <View style={styles.bgAccount}>
-            <Image source={require('../../assets/image/defaultAccount.png')}/>
-          </View>
-          <Text style={styles.header}>Name</Text>
+        <View style={styles.account_btn}>
+          {
+            isLogIn
+            ?
+            <>
+                <View style={styles.bgAccount}>
+                  <Image source={{uri: imgAccount}} style={{width: hp(8), height: hp(8), borderRadius: 80, objectFit: 'fill'}}/>
+                </View>
+                <Text style={styles.header}>Xin chào {nameAccount}</Text>
+            </>
+            :
+            <>
+              <View style={styles.defaultAccount}>
+                <Image source={require('../../assets/image/defaultAccount.png')}/>
+              </View>
+              <Text style={styles.header}>Bạn</Text>
+            </>
+          }
         </View>
       </View>
       <View style={styles.mainContext}>
@@ -129,7 +144,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#9FCB42',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingVertical: 15
+        paddingVertical: 20
     },
     header_btn1: {
         width: wp(100),
@@ -143,9 +158,9 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       color: 'white',
     },
-    bgAccount: {
+    defaultAccount: {
       flexDirection: 'row',
-      width: 65,
+      width: 60,
       height: 60,
       borderRadius: 110,
       borderWidth: 1,
@@ -176,5 +191,22 @@ const styles = StyleSheet.create({
     text: {
       fontSize: 22,
       fontWeight: '500'
+    },
+    bgAccount: {
+      flexDirection: 'row',
+      width: 60,
+      height: 60,
+      borderRadius: 110,
+      borderWidth: 1,
+      borderColor: 'black',
+      justifyContent: 'center',
+      alignItems: 'center',
+      shadowColor: 'black'
+    },
+    account_btn: {
+      flexDirection : 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: wp(95)
     }
 })
